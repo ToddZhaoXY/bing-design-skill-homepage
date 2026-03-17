@@ -418,6 +418,134 @@ section:nth-child(even) .img-placeholder::before {
 
 .img-case-pair .img-placeholder { aspect-ratio: 16 / 10; }
 
+/* Case flow — horizontal stepper */
+.hflow {
+  margin-top: 2rem;
+}
+
+.hflow-nav {
+  position: relative;
+  height: 36px;
+  margin-bottom: 1.5rem;
+}
+
+.hflow-nav::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--c-rule);
+}
+
+.hflow-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--c-black);
+  color: var(--c-white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  user-select: none;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  transition: left 1s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s;
+}
+
+.hflow-dot:hover {
+  box-shadow: 0 0 0 3px var(--c-cream), 0 0 0 5px rgba(0,0,0,0.3);
+}
+
+.hflow-dot.active {
+  box-shadow: 0 0 0 3px var(--c-cream), 0 0 0 5px var(--c-black);
+}
+
+section:nth-child(even) .hflow-dot {
+  background: var(--c-white);
+  color: var(--c-black);
+}
+
+section:nth-child(even) .hflow-dot.active {
+  box-shadow: 0 0 0 3px var(--c-taupe), 0 0 0 5px var(--c-white);
+}
+
+section:nth-child(even) .hflow-dot:hover {
+  box-shadow: 0 0 0 3px var(--c-taupe), 0 0 0 5px rgba(255,255,255,0.3);
+}
+
+section:nth-child(even) .hflow-nav::before {
+  background: rgba(255,255,255,0.15);
+}
+
+.hflow-panels {
+  position: relative;
+  overflow: hidden;
+}
+
+.hflow-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.hflow-panel.active {
+  position: relative;
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.hflow-panel.exit-left {
+  transform: translateX(-60px);
+  opacity: 0;
+}
+
+.hflow-panel.enter-right {
+  transform: translateX(60px);
+  opacity: 0;
+}
+
+.hflow-panel.enter-left {
+  transform: translateX(-60px);
+  opacity: 0;
+}
+
+.case-step-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.case-step-desc {
+  font-size: 0.85rem;
+  color: var(--c-mid);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.case-step-img {
+  overflow: hidden;
+}
+
+.case-step-img img {
+  width: 100%;
+  display: block;
+  border-radius: 24px;
+}
+
 /* Install screenshot — single, medium */
 .img-install { width: 100%; aspect-ratio: 16 / 9; margin-top: 2rem; }
 
@@ -459,14 +587,12 @@ section:nth-child(even) .img-placeholder::before {
 
 .tier-tab-panels {
   position: relative;
-  background: #fff;
-  border: 1px solid var(--c-card-border);
-  border-top: none;
+  border-top: 1px solid var(--c-card-border);
 }
 
 .tier-tab-panel {
   display: none;
-  padding: 1.25rem;
+  padding: 20px 0 0 0;
 }
 
 .tier-tab-panel.active {
@@ -477,11 +603,11 @@ section:nth-child(even) .img-placeholder::before {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 4px;
 }
 
 .tier-tab-desc {
   margin-top: 0.75rem;
+  padding: 0 0 0.75rem 0;
   font-size: 0.82rem;
   color: var(--c-mid);
   line-height: 1.5;
@@ -492,7 +618,7 @@ section:nth-child(even) .tier-tab-btn { color: rgba(255,255,255,0.5); }
 section:nth-child(even) .tier-tab-btn:hover { color: var(--c-white); }
 section:nth-child(even) .tier-tab-btn.active { color: var(--c-white); border-bottom-color: var(--c-white); }
 section:nth-child(even) .tier-tab-bar { border-bottom-color: rgba(255,255,255,0.1); }
-section:nth-child(even) .tier-tab-panels { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+section:nth-child(even) .tier-tab-panels { border-color: rgba(255,255,255,0.08); }
 
 /* ===== Showcase CTA ===== */
 .showcase-cta {
@@ -1006,11 +1132,11 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
     <p class="lead animate visible" style="--delay:3">It enables AI to generate pixel-accurate Bing search experiences — from individual cards to complete SERP pages — directly from natural language input.</p>
     <div class="animate visible" style="--delay:4; margin-top:32px; display:flex; gap:32px; align-items:flex-start;">
       <div style="text-align:center;">
-        <img src="Siliang Pi_@silpi.png" alt="silpi" style="width:56px;height:56px;border-radius:50%;object-fit:cover;">
+        <img src="Siliang Pi_@silpi.png" alt="silpi" style="width:56px;height:56px;border-radius:50%;object-fit:cover;opacity:1;">
         <div style="margin-top:6px; font-size:0.85rem; color:var(--c-label); letter-spacing:0.02em;">@silpi</div>
       </div>
       <div style="text-align:center;">
-        <img src="Xingyu Zhao @v-zhaoxingyu.png" alt="v-zhaoxingyu" style="width:56px;height:56px;border-radius:50%;object-fit:cover;">
+        <img src="Xingyu Zhao @v-zhaoxingyu.png" alt="v-zhaoxingyu" style="width:56px;height:56px;border-radius:50%;object-fit:cover;opacity:1;">
         <div style="margin-top:6px; font-size:0.85rem; color:var(--c-label); letter-spacing:0.02em;">@v-zhaoxingyu</div>
       </div>
     </div>
@@ -1027,14 +1153,14 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
     <h2 class="animate visible" style="--delay:1">Everything you need to generate <span class="serif">pixel-accurate</span> Bing experiences.</h2>
 
     <div class="stats-bar">
-      <div class="stat-chip animate" style="--delay:3"><span class="num">35</span><span class="label">Reference Docs</span></div>
-      <div class="stat-chip animate" style="--delay:4"><span class="num">~200</span><span class="label">Design Tokens</span></div>
-      <div class="stat-chip animate" style="--delay:5"><span class="num">148</span><span class="label">Icons</span></div>
-      <div class="stat-chip animate" style="--delay:6"><span class="num">10</span><span class="label">Card Types</span></div>
-      <div class="stat-chip animate" style="--delay:7"><span class="num">3+Dark</span><span class="label">Themes</span></div>
+      <div class="stat-chip animate visible" style="--delay:3"><span class="num">35</span><span class="label">Reference Docs</span></div>
+      <div class="stat-chip animate visible" style="--delay:4"><span class="num">~200</span><span class="label">Design Tokens</span></div>
+      <div class="stat-chip animate visible" style="--delay:5"><span class="num">148</span><span class="label">Icons</span></div>
+      <div class="stat-chip animate visible" style="--delay:6"><span class="num">10</span><span class="label">Card Types</span></div>
+      <div class="stat-chip animate visible" style="--delay:7"><span class="num">3+Dark</span><span class="label">Themes</span></div>
     </div>
 
-    <div class="explorer animate" style="--delay:8">
+    <div class="explorer animate visible" style="--delay:8">
       <!-- ===== LEFT: Preview ===== -->
       <div class="ex-preview" id="exPreview">
 <!-- Welcome -->
@@ -1403,28 +1529,28 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
 <!-- ===== 3. What It Can Do ===== -->
 <section id="what-it-can-do">
   <div class="inner">
-    <span class="section-label animate" style="--delay:0">03 — Capabilities</span>
-    <h2 class="animate" style="--delay:1">From a single <span class="serif">token</span> to a complete search results page.</h2>
+    <span class="section-label animate visible" style="--delay:0">03 — Capabilities</span>
+    <h2 class="animate visible" style="--delay:1">From a single <span class="serif">token</span> to a complete search results page.</h2>
 
-    <div class="section-title animate" style="--delay:3">Four Task Tiers</div>
+    <div class="section-title animate visible" style="--delay:3">Four Task Tiers</div>
 
     <table class="tier-table">
       <thead>
         <tr>
-          <th class="animate" style="--delay:4">Tier</th>
-          <th class="animate" style="--delay:4">Input</th>
-          <th class="animate" style="--delay:4">Output</th>
+          <th class="animate visible" style="--delay:4">Tier</th>
+          <th class="animate visible" style="--delay:4">Input</th>
+          <th class="animate visible" style="--delay:4">Output</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="animate" style="--delay:5"><td>Styling</td><td>"Apply Bing style to my component"</td><td>Token-mapped CSS</td></tr>
-        <tr class="animate" style="--delay:6"><td>Card</td><td>"Create a video card"</td><td>Single card HTML/CSS</td></tr>
-        <tr class="animate" style="--delay:7"><td>Layout</td><td>"Arrange cards in magazine grid"</td><td>Multi-card grid layout</td></tr>
-        <tr class="animate" style="--delay:8"><td>Full Page</td><td>"Build a Bing search results page"</td><td>Complete SERP with responsive breakpoints</td></tr>
+        <tr class="animate visible" style="--delay:5"><td>Styling</td><td>"Apply Bing style to my component"</td><td>Token-mapped CSS</td></tr>
+        <tr class="animate visible" style="--delay:6"><td>Card</td><td>"Create a video card"</td><td>Single card HTML/CSS</td></tr>
+        <tr class="animate visible" style="--delay:7"><td>Layout</td><td>"Arrange cards in magazine grid"</td><td>Multi-card grid layout</td></tr>
+        <tr class="animate visible" style="--delay:8"><td>Full Page</td><td>"Build a Bing search results page"</td><td>Complete SERP with responsive breakpoints</td></tr>
       </tbody>
     </table>
 
-    <div class="tier-tabs animate" style="--delay:9">
+    <div class="tier-tabs animate visible" style="--delay:9">
       <div class="tier-tab-bar">
         <div class="tier-tab-btn active" data-tier="styling">Styling</div>
         <div class="tier-tab-btn" data-tier="card">Card</div>
@@ -1445,22 +1571,22 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
           <div class="tier-tab-desc">Input: "Arrange cards in magazine grid" → Output: Multi-card grid layout</div>
         </div>
         <div class="tier-tab-panel" id="tier-page">
-          <img src="page.jpeg" alt="Full Page tier output — a complete Bing SERP with responsive breakpoints">
+          <img src="page.png" alt="Full Page tier output — a complete Bing SERP with responsive breakpoints">
           <div class="tier-tab-desc">Input: "Build a Bing search results page" → Output: Complete SERP with responsive breakpoints</div>
         </div>
       </div>
     </div>
 
-    <div class="section-title animate" style="--delay:10">Key Capabilities</div>
+    <div class="section-title animate visible" style="--delay:10">Key Capabilities</div>
     <ul class="capability-list">
-      <li class="animate" style="--delay:11">Natural language to production-ready HTML/CSS</li>
-      <li class="animate" style="--delay:12">All values use design tokens — zero hardcoded colors or spacing</li>
-      <li class="animate" style="--delay:13">Light/Dark mode via single attribute toggle</li>
-      <li class="animate" style="--delay:14">3 themes switchable with one line of code</li>
-      <li class="animate" style="--delay:15">7-breakpoint responsive (1600px → 499px)</li>
+      <li class="animate visible" style="--delay:11">Natural language to production-ready HTML/CSS</li>
+      <li class="animate visible" style="--delay:12">All values use design tokens — zero hardcoded colors or spacing</li>
+      <li class="animate visible" style="--delay:13">Light/Dark mode via single attribute toggle</li>
+      <li class="animate visible" style="--delay:14">3 themes switchable with one line of code</li>
+      <li class="animate visible" style="--delay:15">7-breakpoint responsive (1600px → 499px)</li>
     </ul>
 
-    <div class="showcase-cta animate" style="--delay:16">
+    <div class="showcase-cta animate visible" style="--delay:16">
       <div class="showcase-cta-body">
         <h3>Live Card Showcase</h3>
         <p>A template website showcasing all the cards, controls, and layout patterns this skill can generate — from Answer Cards to full Magazine grids. Browse real outputs and see the design system in action.</p>
@@ -1476,31 +1602,31 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
 <!-- ===== 4. Recommended Scenarios ===== -->
 <section id="scenarios">
   <div class="inner">
-    <span class="section-label animate" style="--delay:0">04 — Scenarios</span>
-    <h2 class="animate" style="--delay:1">Where the skill delivers the most <span class="serif">value</span>.</h2>
+    <span class="section-label animate visible" style="--delay:0">04 — Scenarios</span>
+    <h2 class="animate visible" style="--delay:1">Where the skill delivers the most <span class="serif">value</span>.</h2>
 
     <div class="cards-grid">
-      <div class="card animate" style="--delay:3">
+      <div class="card animate visible" style="--delay:3">
         <h3>SERP Prototyping</h3>
         <p>Full search results page in minutes</p>
       </div>
-      <div class="card animate" style="--delay:4">
+      <div class="card animate visible" style="--delay:4">
         <h3>Answer Experience Exploration</h3>
         <p>Describe an idea, see pixel-accurate UI immediately</p>
       </div>
-      <div class="card animate" style="--delay:5">
+      <div class="card animate visible" style="--delay:5">
         <h3>Design Spec Validation</h3>
         <p>Verify tokens behave correctly in real UI</p>
       </div>
-      <div class="card animate" style="--delay:6">
+      <div class="card animate visible" style="--delay:6">
         <h3>Design-to-Dev Handoff</h3>
         <p>Output is developer-ready HTML/CSS</p>
       </div>
-      <div class="card animate" style="--delay:7">
+      <div class="card animate visible" style="--delay:7">
         <h3>Multi-Theme Comparison</h3>
         <p>Same layout, three themes, instant switch</p>
       </div>
-      <div class="card animate" style="--delay:8">
+      <div class="card animate visible" style="--delay:8">
         <h3>Responsive Testing</h3>
         <p>Built-in 7-breakpoint adaptation, test by resizing browser</p>
       </div>
@@ -1511,44 +1637,126 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
 <!-- ===== 5. Case Study ===== -->
 <section id="case-study">
   <div class="inner">
-    <span class="section-label animate" style="--delay:0">05 — Case Study</span>
-    <h2 class="animate" style="--delay:1">A real design task, <span class="serif">before</span> and after.</h2>
-    <p class="animate" style="--delay:2;color:var(--c-placeholder);font-style:italic">Coming soon</p>
+    <span class="section-label animate visible" style="--delay:0">05 — Case Study</span>
+    <h2 class="animate visible" style="--delay:1">Two tasks, one <span class="serif">skill</span>.</h2>
+
+    <!-- Case 1: Structured Generation -->
+    <div class="animate visible" style="--delay:2; margin-top:2.5rem;">
+      <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:0.75rem;">
+        <span style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--c-label);">Case 01</span>
+        <h3 style="font-size:1.1rem; font-weight:400; letter-spacing:-0.01em;">Structured Generation — <span class="serif">Fast, accurate, coherent</span></h3>
+      </div>
+      <p style="font-size:0.88rem; color:var(--c-mid); line-height:1.6; max-width:640px;">Generate cards, magazines, and layouts from a single prompt. Every output strictly follows the card and magazine specifications defined in the Bing Design Skill — tokens, spacing, typography, and layout rules are all enforced automatically, delivering high accuracy and strong visual coherence at speed.</p>
+
+      <div class="tier-tabs" style="margin-top:1.5rem;">
+        <div class="tier-tab-bar">
+          <div class="tier-tab-btn active" data-tier="case1-mag-movie">Movie Magazine</div>
+          <div class="tier-tab-btn" data-tier="case1-mag-peter">Person Magazine</div>
+          <div class="tier-tab-btn" data-tier="case1-card">Movie Card</div>
+        </div>
+        <div class="tier-tab-panels">
+          <div class="tier-tab-panel active" id="tier-case1-mag-movie">
+            <img src="Magazine_of_movies_templates.png" alt="Movie magazine layout generated by the skill">
+            <div class="tier-tab-desc">Generate a movie-themed magazine layout</div>
+          </div>
+          <div class="tier-tab-panel" id="tier-case1-mag-peter">
+            <img src="Magazine_of_Peter_Steinberger.png" alt="Magazine layout for Peter Steinberger">
+            <div class="tier-tab-desc">Generate a person-themed magazine with real web data</div>
+          </div>
+          <div class="tier-tab-panel" id="tier-case1-card" style="text-align:center;">
+            <img src="Card_of_movies_templates.png" alt="Movie card generated by the skill" style="width:auto; max-width:100%; height:338.26px; margin:0 auto;">
+            <div class="tier-tab-desc">Generate a movie-themed answer card with real data</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 2: Design Exploration -->
+    <div class="animate visible" style="--delay:4; margin-top:3rem;">
+      <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:0.75rem;">
+        <span style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--c-label);">Case 02</span>
+        <h3 style="font-size:1.1rem; font-weight:400; letter-spacing:-0.01em;">Design Exploration — <span class="serif">News Go Wide</span></h3>
+      </div>
+      <p style="font-size:0.88rem; color:var(--c-mid); line-height:1.6; max-width:640px;">An open-ended design exploration using the skill as a creative tool — from spec to multiple outputs in three steps.</p>
+
+      <!-- Horizontal flow steps -->
+      <div class="hflow" id="hflow">
+        <!-- Step indicators row -->
+        <div class="hflow-nav">
+          <div class="hflow-dot active" data-step="0" style="left: 0px;">01</div>
+          <div class="hflow-dot" data-step="1" style="left: 876px;">02</div>
+          <div class="hflow-dot" data-step="2" style="left: 924px;">03</div>
+        </div>
+
+        <!-- Step panels -->
+        <div class="hflow-panels">
+          <div class="hflow-panel active" data-step="0">
+            <div class="case-step-title">Prepare the Figma Reference</div>
+            <p class="case-step-desc">Organize the current design file — summarize the PM spec, identify the existing vertical module (News Events + Related News), and define the design goal: redesign it into a single wide-format module.</p>
+            <div class="case-step-img">
+              <img src="Figma Reference.png" alt="Figma reference showing current module, current page, and target structure">
+            </div>
+          </div>
+
+          <div class="hflow-panel" data-step="1">
+            <div class="case-step-title">Prompt Claude Code with Context</div>
+            <p class="case-step-desc">Distill the design goal into a natural language prompt, provide the Figma link, and let Claude fetch the full context via MCP. The skill handles the rest — planning the approach, then generating multiple design directions.</p>
+            <div class="case-step-img" style="text-align:center; padding:2.5rem 0;">
+              <img src="INPUT.png" alt="Design brief prompt given to Claude" style="width:70%; border-radius:8px; margin:0 auto;">
+            </div>
+          </div>
+
+          <div class="hflow-panel" data-step="2">
+            <div class="case-step-title">Review Multiple Outputs</div>
+            <p class="case-step-desc">The skill generates a range of design directions — from conservative layouts that respect existing structure to divergent explorations that reimagine the module entirely. Below are two representative examples out of many.</p>
+            <div class="case-step-img" style="margin-bottom:12px;">
+              <img src="Output_1.png" alt="Conservative design output — news module expanded to full width">
+            </div>
+            <p style="font-size:0.75rem; color:var(--c-label); margin-bottom:16px;">▲ Conservative — faithful to existing page structure</p>
+            <div class="case-step-img" style="margin-bottom:12px;">
+              <img src="Output_2.png" alt="Divergent design output — reimagined news module with list-based layout">
+            </div>
+            <p style="font-size:0.75rem; color:var(--c-label);">▲ Divergent — reimagined layout with richer visual hierarchy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- ===== 6. Value for Designers ===== -->
 <section id="value">
   <div class="inner">
-    <span class="section-label animate" style="--delay:0">06 — Value</span>
-    <h2 class="animate" style="--delay:1">How the skill transforms your <span class="serif">workflow</span>.</h2>
+    <span class="section-label animate visible" style="--delay:0">06 — Value</span>
+    <h2 class="animate visible" style="--delay:1">How the skill transforms your <span class="serif">workflow</span>.</h2>
 
     <div class="comparison-grid">
-      <div class="comparison-row animate slide-left" style="--delay:3">
+      <div class="comparison-row animate slide-left visible" style="--delay:3">
         <span class="comparison-label">Workflow</span>
         <span class="comparison-from">Pixel-by-pixel in Figma</span>
         <span class="comparison-arrow">→</span>
         <span class="comparison-to">Describe intent, AI executes per spec</span>
       </div>
-      <div class="comparison-row animate slide-right" style="--delay:4">
+      <div class="comparison-row animate slide-right visible" style="--delay:4">
         <span class="comparison-label">Design System</span>
         <span class="comparison-from">Static documentation to memorize</span>
         <span class="comparison-arrow">→</span>
         <span class="comparison-to">Executable rules AI follows automatically</span>
       </div>
-      <div class="comparison-row animate slide-left" style="--delay:5">
+      <div class="comparison-row animate slide-left visible" style="--delay:5">
         <span class="comparison-label">Exploration</span>
         <span class="comparison-from">Hours per direction</span>
         <span class="comparison-arrow">→</span>
         <span class="comparison-to">Minutes per direction</span>
       </div>
-      <div class="comparison-row animate slide-right" style="--delay:6">
+      <div class="comparison-row animate slide-right visible" style="--delay:6">
         <span class="comparison-label">Consistency</span>
         <span class="comparison-from">Manual token adherence</span>
         <span class="comparison-arrow">→</span>
         <span class="comparison-to">Guaranteed by the skill</span>
       </div>
-      <div class="comparison-row animate slide-left" style="--delay:7">
+      <div class="comparison-row animate slide-left visible" style="--delay:7">
         <span class="comparison-label">Responsive</span>
         <span class="comparison-from">Separate mobile artboards</span>
         <span class="comparison-arrow">→</span>
@@ -1561,32 +1769,32 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
 <!-- ===== 7. Tips ===== -->
 <section id="tips">
   <div class="inner">
-    <span class="section-label animate" style="--delay:0">07 — Tips</span>
-    <h2 class="animate" style="--delay:1">Getting the most from your <span class="serif">skill</span>.</h2>
+    <span class="section-label animate visible" style="--delay:0">07 — Tips</span>
+    <h2 class="animate visible" style="--delay:1">Getting the most from your <span class="serif">skill</span>.</h2>
 
     <div class="tips-list">
-      <div class="tip-item animate" style="--delay:3">
+      <div class="tip-item animate visible" style="--delay:3">
         <span class="tip-num">01</span>
         <div class="tip-body">
           <h3>Plan Mode First</h3>
           <p>Use Plan Mode to describe your requirements clearly before execution. This significantly reduces errors and back-and-forth iterations.</p>
         </div>
       </div>
-      <div class="tip-item animate" style="--delay:4">
+      <div class="tip-item animate visible" style="--delay:4">
         <span class="tip-num">02</span>
         <div class="tip-body">
           <h3>Work in Steps</h3>
           <p>Break tasks into stages — get the structure right first, then fill in real data later. Incremental progress beats one-shot perfection.</p>
         </div>
       </div>
-      <div class="tip-item animate" style="--delay:5">
+      <div class="tip-item animate visible" style="--delay:5">
         <span class="tip-num">03</span>
         <div class="tip-body">
           <h3>Write a Good CLAUDE.md</h3>
           <p>When working on a dedicated project, a well-written CLAUDE.md gives the AI persistent context and dramatically improves output consistency.</p>
         </div>
       </div>
-      <div class="tip-item animate" style="--delay:6">
+      <div class="tip-item animate visible" style="--delay:6">
         <span class="tip-num">04</span>
         <div class="tip-body">
           <h3>Accept Minor Variance</h3>
@@ -1600,9 +1808,9 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
 <!-- ===== 8. Get Started ===== -->
 <section id="get-started">
   <div class="inner" style="text-align:center">
-    <span class="section-label animate" style="--delay:0">08 — Get Started</span>
-    <h2 class="animate" style="--delay:1">Ready to <span class="serif">begin</span>?</h2>
-    <div class="animate" style="--delay:3;margin-top:2rem">
+    <span class="section-label animate visible" style="--delay:0">08 — Get Started</span>
+    <h2 class="animate visible" style="--delay:1">Ready to <span class="serif">begin</span>?</h2>
+    <div class="animate visible" style="--delay:3;margin-top:2rem">
       <a href="https://github.com/v-zhaoxingyu_microsoft/bing-design-skill-1.2" target="_blank" class="showcase-cta-link" style="padding:0.85rem 2.5rem;font-size:0.9rem">Get the Skill →</a>
     </div>
   </div>
@@ -1611,33 +1819,33 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
 <!-- ===== 9. Future Potential ===== -->
 <section id="future">
   <div class="inner">
-    <span class="section-label animate" style="--delay:0">09 — Future</span>
-    <h2 class="animate" style="--delay:1">What comes <span class="serif">next</span>.</h2>
+    <span class="section-label animate visible" style="--delay:0">09 — Future</span>
+    <h2 class="animate visible" style="--delay:1">What comes <span class="serif">next</span>.</h2>
 
     <ul class="future-list">
-      <li class="animate" style="--delay:3">
+      <li class="animate visible" style="--delay:3">
         <strong>Vertical Expansion</strong>
         <span>Extend to Shopping, News, Maps with vertical-specific cards</span>
       </li>
-      <li class="animate" style="--delay:4">
+      <li class="animate visible" style="--delay:4">
         <strong>Figma Bidirectional Sync</strong>
         <span>Extract specs from Figma, push generated UI back</span>
       </li>
-      <li class="animate" style="--delay:5">
+      <li class="animate visible" style="--delay:5">
         <strong>Automated Design QA</strong>
         <span>Use skill specs as baseline to audit live pages</span>
       </li>
-      <li class="animate" style="--delay:6">
+      <li class="animate visible" style="--delay:6">
         <strong>Team Standardization</strong>
         <span>Same skill ensures consistent output across all contributors</span>
       </li>
-      <li class="animate" style="--delay:7">
+      <li class="animate visible" style="--delay:7">
         <strong>Living Design System</strong>
         <span>Update token files, all future generation inherits changes</span>
       </li>
     </ul>
 
-    <div class="animate" style="--delay:8;margin-top:5rem;display:flex;justify-content:space-between;align-items:center">
+    <div class="animate visible" style="--delay:8;margin-top:5rem;display:flex;justify-content:space-between;align-items:center">
       <span class="nav-anchor">( Back to top )</span>
       <span class="nav-anchor">Bing Design Skill 1.2</span>
     </div>
@@ -1675,12 +1883,13 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
     });
   });
 
-  /* Tier image tabs */
+  /* Tier image tabs — scoped to each .tier-tabs container */
   document.querySelectorAll('.tier-tab-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var tier = btn.getAttribute('data-tier');
-      document.querySelectorAll('.tier-tab-btn').forEach(function (b) { b.classList.remove('active'); });
-      document.querySelectorAll('.tier-tab-panel').forEach(function (p) { p.classList.remove('active'); });
+      var container = btn.closest('.tier-tabs');
+      container.querySelectorAll('.tier-tab-btn').forEach(function (b) { b.classList.remove('active'); });
+      container.querySelectorAll('.tier-tab-panel').forEach(function (p) { p.classList.remove('active'); });
       btn.classList.add('active');
       var panel = document.getElementById('tier-' + tier);
       if (panel) panel.classList.add('active');
@@ -1701,6 +1910,84 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
       if (panel) panel.classList.add('active');
     });
   });
+
+  /* ===== Horizontal Flow Stepper ===== */
+  (function () {
+    var hflow = document.getElementById('hflow');
+    if (!hflow) return;
+    var nav = hflow.querySelector('.hflow-nav');
+    var dots = Array.from(hflow.querySelectorAll('.hflow-dot'));
+    var panels = Array.from(hflow.querySelectorAll('.hflow-panel'));
+    var current = 0;
+    var dotSize = 36;
+    var dotGap = 12;
+
+    function positionDots() {
+      var navWidth = nav.offsetWidth;
+      dots.forEach(function (dot, i) {
+        var left;
+        if (i < current) {
+          // Visited: stack from left
+          left = i * (dotSize + dotGap);
+        } else if (i === current) {
+          // Active: next to visited dots
+          left = current * (dotSize + dotGap);
+        } else {
+          // Future: stack from right
+          var fromRight = (dots.length - 1 - i);
+          left = navWidth - dotSize - fromRight * (dotSize + dotGap);
+        }
+        dot.style.left = left + 'px';
+      });
+    }
+
+    function goTo(idx) {
+      if (idx < 0 || idx >= dots.length || idx === current) return;
+      var goingForward = idx > current;
+
+      // Update dot classes
+      dots.forEach(function (d) { d.classList.remove('active', 'visited'); });
+      for (var i = 0; i < idx; i++) dots[i].classList.add('visited');
+      dots[idx].classList.add('active');
+
+      // Slide out old panel
+      var oldPanel = panels[current];
+      var newPanel = panels[idx];
+
+      oldPanel.classList.remove('active');
+      oldPanel.classList.add(goingForward ? 'exit-left' : 'enter-right');
+
+      // Prepare new panel entry direction
+      newPanel.classList.remove('exit-left', 'enter-right', 'enter-left');
+      newPanel.style.transition = 'none';
+      newPanel.classList.add(goingForward ? 'enter-right' : 'enter-left');
+
+      // Force reflow then animate in
+      void newPanel.offsetWidth;
+      newPanel.style.transition = '';
+      newPanel.classList.remove('enter-right', 'enter-left');
+      newPanel.classList.add('active');
+
+      // Clean old panel after transition
+      setTimeout(function () {
+        oldPanel.classList.remove('exit-left', 'enter-right');
+      }, 1000);
+
+      current = idx;
+      positionDots();
+    }
+
+    // Initial position
+    positionDots();
+    window.addEventListener('resize', positionDots);
+
+    // Click on dots
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        goTo(parseInt(dot.getAttribute('data-step')));
+      });
+    });
+  })();
 
   })();
 </script><input type="file" accept="image/*" style="display: none;">
