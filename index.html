@@ -189,6 +189,8 @@ tbody tr:last-child td { border-bottom: none; }
   margin-top: 20px;
 }
 
+.reference-paths { grid-template-columns: repeat(2, 1fr); }
+
 .card {
   background: var(--c-card-bg);
   border: 1px solid var(--c-card-border);
@@ -988,6 +990,28 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
   font-family: var(--f-sans);
 }
 
+#latestTokenPreview { overflow-x: auto; }
+#latestTokenPreview .pv-token-table { table-layout: fixed; }
+#latestTokenPreview .pv-token-table th:first-child,
+#latestTokenPreview .pv-token-table td:first-child {
+  width: var(--token-column-width, 80%);
+  white-space: nowrap;
+  word-break: normal;
+  font-size: 0.68rem;
+}
+#latestTokenPreview .pv-token-table th:last-child,
+#latestTokenPreview .pv-token-table td:last-child {
+  width: calc(100% - var(--token-column-width, 80%));
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+#pv-latest-type { --token-column-width: 62%; }
+#pv-latest-shape { --token-column-width: 50%; }
+#pv-latest-spacing { --token-column-width: 58%; }
+#pv-latest-depth { --token-column-width: 56%; }
+#pv-latest-motion { --token-column-width: 45%; }
+#pv-latest-effects { --token-column-width: 60%; }
+
 /* Corner visual demos */
 .pv-corner-grid {
   display: grid;
@@ -1084,10 +1108,11 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
 
 @media (max-width: 700px) {
   .explorer { grid-template-columns: 1fr; height: auto; }
-  .ex-preview { min-height: 400px; max-height: 500px; }
+  .ex-preview { min-height: 400px; max-height: 500px; padding: 1.5rem; }
   .ex-menu { max-height: 300px; }
   .pv-icons { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); }
   .pv-corner-grid { grid-template-columns: repeat(2, 1fr); }
+  #latestTokenPreview .pv-token-table { min-width: 720px; }
 }
 
 /* ===== Animations ===== */
@@ -1116,6 +1141,7 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
   .comparison-to::before { content: "To: "; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
   .stats-bar { gap: 0.75rem; }
   .cards-grid { grid-template-columns: 1fr; }
+  .reference-paths { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -1125,11 +1151,11 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
 <section id="what-is-it">
   <div class="inner">
     <div class="deck-header animate visible" style="--delay:0">
-      <span class="section-label">Bing Design Skill</span>
+      <span class="section-label">Bing Design System · ACF</span>
       <span class="nav-anchor">( Scroll to explore )</span>
     </div>
-    <h1 class="animate visible" style="--delay:1">A Claude Code skill that encodes the Bing/ACF design system into <span class="serif">AI-executable</span> instructions.</h1>
-    <p class="lead animate visible" style="--delay:3">It enables AI to generate pixel-accurate Bing search experiences — from individual cards to complete SERP pages — directly from natural language input.</p>
+    <h1 class="animate visible" style="--delay:1">The <span class="serif">authoritative reference</span> for the Bing/ACF design system.</h1>
+    <p class="lead animate visible" style="--delay:3">A standardized, read-only source of truth for tokens, foundations, layout rules, components, and patterns. It makes Bing design guidance available to people and AI; consuming agents decide what to build or review.</p>
     <div class="animate visible" style="--delay:4; margin-top:32px; display:flex; gap:32px; align-items:flex-start;">
       <div style="text-align:center;">
         <img src="Siliang Pi_@silpi.png" alt="silpi" style="width:56px;height:56px;border-radius:50%;object-fit:cover;opacity:1;">
@@ -1141,14 +1167,627 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
       </div>
     </div>
     <div class="animate visible" style="--delay:5;margin-top:2rem">
-      <a href="https://github.com/gim-home/Bing-Design-Skill-1.0" target="_blank" class="showcase-cta-link" style="padding:0.85rem 2.5rem;font-size:0.9rem">Get the Skill →</a>
-      <a href="https://github.com/ToddZhaoXY/bing-design" target="_blank" class="showcase-cta-link" style="padding:0.85rem 2.5rem;font-size:0.9rem;margin-left:1rem">Get new skill (beta) →</a>
+      <a href="https://github.com/gim-home/Bing-design-skills-ACF" target="_blank" class="showcase-cta-link" style="padding:0.85rem 2.5rem;font-size:0.9rem">Get latest skill →</a>
+      <a href="https://github.com/gim-home/Bing-Design-Skill-1.0" target="_blank" class="showcase-cta-link" style="padding:0.85rem 2.5rem;font-size:0.9rem;margin-left:1rem">View old version →</a>
     </div>
   </div>
 </section>
 
 <!-- ===== 2. What's Inside ===== -->
 <section id="whats-inside">
+  <div class="inner">
+    <span class="section-label animate visible" style="--delay:0">02 — What's Inside</span>
+    <h2 class="animate visible" style="--delay:1">One source of truth for every <span class="serif">production token</span>.</h2>
+    <p class="lead animate visible" style="--delay:2">The latest ACF skill consolidates Bing's token system into a shipped JSON catalog with semantic categories, light and dark values, and direct lookup paths for both people and agents.</p>
+
+    <div class="stats-bar">
+      <div class="stat-chip animate" style="--delay:3"><span class="num">426</span><span class="label">Shipped Tokens</span></div>
+      <div class="stat-chip animate" style="--delay:4"><span class="num">12</span><span class="label">Categories</span></div>
+      <div class="stat-chip animate" style="--delay:5"><span class="num">3</span><span class="label">Core Namespaces</span></div>
+      <div class="stat-chip animate" style="--delay:6"><span class="num">2</span><span class="label">Color Modes</span></div>
+      <div class="stat-chip animate" style="--delay:7"><span class="num">3</span><span class="label">Lookup Catalogs</span></div>
+    </div>
+
+    <div class="explorer animate" style="--delay:8">
+      <div class="ex-preview" id="latestTokenPreview">
+        <div class="pv active" id="pv-latest-overview">
+          <div class="ex-preview-label">Token Catalog</div>
+          <div class="ex-preview-title">426 production tokens</div>
+          <div class="ex-preview-desc">Every entry is shipped and carries a semantic CSS variable, category, usage guidance, Figma name, and a light/dark value schema.</div>
+          <table class="pv-token-table">
+            <thead><tr><th>Category</th><th>Count</th></tr></thead>
+            <tbody>
+              <tr><td>Background</td><td>145</td></tr>
+              <tr><td>Foreground</td><td>88</td></tr>
+              <tr><td>Stroke</td><td>52</td></tr>
+              <tr><td>Padding</td><td>36</td></tr>
+              <tr><td>Corner radius</td><td>31</td></tr>
+              <tr><td>Typography</td><td>22</td></tr>
+              <tr><td>Shadow</td><td>20</td></tr>
+              <tr><td>Gap</td><td>12</td></tr>
+              <tr><td>Animation</td><td>10</td></tr>
+              <tr><td>Other / motion curves</td><td>6</td></tr>
+              <tr><td>Effects</td><td>3</td></tr>
+              <tr><td>Font family</td><td>1</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pv" id="pv-latest-color">
+          <div class="ex-preview-label">Color</div>
+          <div class="ex-preview-title">285 semantic color tokens</div>
+          <div class="ex-preview-desc">Background, foreground, and stroke tokens cover surfaces, content, controls, states, and dividers.</div>
+          <table class="pv-token-table">
+            <thead><tr><th>Token</th><th>Value / Usage</th></tr></thead>
+            <tbody>
+              <tr><td>--bing-smtc-background-card-on-primary-alt-gradient-stop-1</td><td><span class="pv-color-chip" style="background:#ebf6ff"></span>#ebf6ff / #1d2b36</td></tr>
+              <tr><td>--bing-smtc-background-card-on-primary-alt-rest</td><td><span class="pv-color-chip" style="background:#ebf6ff"></span>#ebf6ff / #1d2b36</td></tr>
+              <tr><td>--bing-smtc-background-card-on-primary-alt-hover</td><td><span class="pv-color-chip" style="background:#dfecf5"></span>#dfecf5 / #202f3b</td></tr>
+              <tr><td>--bing-smtc-background-card-on-primary-alt-pressed</td><td><span class="pv-color-chip" style="background:#d5e5f0"></span>#d5e5f0 / #233440</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-active-brand-rest</td><td><span class="pv-color-chip" style="background:#ebf6ff"></span>#ebf6ff / #1d2b36</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-active-brand-hover</td><td><span class="pv-color-chip" style="background:#dfecf5"></span>#dfecf5 / #202f3b</td></tr>
+              <tr><td>--bing-smtc-ctrl-background-fade-stop-0</td><td><span class="pv-color-chip" style="background:rgba(235, 246, 255, 0)"></span>rgba(235, 246, 255, 0) / rgba(29, 43, 54, 0)</td></tr>
+              <tr><td>--bing-smtc-ctrl-citation-background-rest</td><td><span class="pv-color-chip" style="background:#ebf6ff"></span>#ebf6ff / #1d2b36</td></tr>
+              <tr><td>--bing-smtc-ctrl-citation-background-hover</td><td><span class="pv-color-chip" style="background:#dfecf5"></span>#dfecf5 / #202f3b</td></tr>
+              <tr><td>--bing-smtc-ctrl-citation-background-pressed</td><td><span class="pv-color-chip" style="background:#d5e5f0"></span>#d5e5f0 / #233440</td></tr>
+              <tr><td>--bing-smtc-ctrl-spinner-backdrop-background</td><td><span class="pv-color-chip" style="background:rgba(235, 246, 255, 0.85)"></span>rgba(235, 246, 255, 0.85) / rgba(29, 43, 54, 0.85)</td></tr>
+              <tr><td>--bing-smtc-background-card-on-image-default</td><td>Background color for card components</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-fade-on-image-stop-0</td><td>Background color for controls/interactive elements</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-fade-on-primary-stop-0</td><td>Background color for controls/interactive elements</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-image-placeholder-default</td><td>Background color for controls/interactive elements</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-on-image-switchable-rest</td><td>Background color for controls/interactive elements — rest state</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-on-image-switchable-hover</td><td>Background color for controls/interactive elements — hover state</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-on-image-switchable-pressed</td><td>Background color for controls/interactive elements — pressed state</td></tr>
+              <tr><td>--bing-smtc-background-with-material-citation</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-background-with-material-overlay</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-ctrl-favicon-background</td><td>Background color for controls/interactive elements</td></tr>
+              <tr><td>--bing-smtc-status-informative-neutral-background</td><td>Background color (neutral)</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-brand-rest</td><td><span class="pv-color-chip" style="background:#0078d4"></span>#0078d4 / #c6e2f7</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-ghost-hover</td><td><span class="pv-color-chip" style="background:#b7d5eb"></span>#b7d5eb / #2a4051</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-ghost-pressed</td><td><span class="pv-color-chip" style="background:#a5c6df"></span>#a5c6df / #2e4659</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-neutral-rest</td><td><span class="pv-color-chip" style="background:#c6e2f7"></span>#c6e2f7 / #243949</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-outline-hover</td><td><span class="pv-color-chip" style="background:#b7d5eb"></span>#b7d5eb / #2a4051</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-outline-pressed</td><td><span class="pv-color-chip" style="background:#a5c6df"></span>#a5c6df / #2e4659</td></tr>
+              <tr><td>--bing-smtc-ctrl-citation-foreground-rest</td><td><span class="pv-color-chip" style="background:#0078d4"></span>#0078d4 / #c6e2f7</td></tr>
+              <tr><td>--bing-smtc-ctrl-citation-foreground-hover</td><td><span class="pv-color-chip" style="background:#005a9f"></span>#005a9f / #aacce6</td></tr>
+              <tr><td>--bing-smtc-ctrl-citation-foreground-pressed</td><td><span class="pv-color-chip" style="background:#00487f"></span>#00487f / #9cbbd2</td></tr>
+              <tr><td>--bing-smtc-ctrl-citation-on-card-background-rest</td><td><span class="pv-color-chip" style="background:#c6e2f7"></span>#c6e2f7 / #243949</td></tr>
+              <tr><td>--bing-smtc-ctrl-citation-on-card-background-hover</td><td><span class="pv-color-chip" style="background:#b7d5eb"></span>#b7d5eb / #2a4051</td></tr>
+              <tr><td>--bing-smtc-ctrl-skeleton-background-default-layer-1-stop-1</td><td><span class="pv-color-chip" style="background:#0078d4"></span>#0078d4 / #c6e2f7</td></tr>
+              <tr><td>--bing-smtc-ctrl-tab-ghost-background-hover</td><td><span class="pv-color-chip" style="background:#b7d5eb"></span>#b7d5eb / #2a4051</td></tr>
+              <tr><td>--bing-smtc-ctrl-tab-ghost-background-pressed</td><td><span class="pv-color-chip" style="background:#a5c6df"></span>#a5c6df / #2e4659</td></tr>
+              <tr><td>--bing-smtc-ctrl-tab-ghost-background-selected</td><td><span class="pv-color-chip" style="background:#c6e2f7"></span>#c6e2f7 / #243949</td></tr>
+              <tr><td>--bing-smtc-foreground-ctrl-on-transparent-rest</td><td><span class="pv-color-chip" style="background:#0078d4"></span>#0078d4 / #c6e2f7</td></tr>
+              <tr><td>--bing-smtc-status-brand-background</td><td><span class="pv-color-chip" style="background:#0078d4"></span>#0078d4 / #c6e2f7</td></tr>
+              <tr><td>--bing-smtc-ctrl-link-foreground-brand-alt-visited</td><td>Foreground/text color for controls/interactive elements (brand/accent themed)</td></tr>
+              <tr><td>--bing-smtc-foreground-content-neutral-secondary-alt</td><td>Foreground/text color for content areas (neutral)</td></tr>
+              <tr><td>--bing-smtc-foreground-content-neutral-tertiary</td><td>Foreground/text color for content areas (neutral)</td></tr>
+              <tr><td>--bing-smtc-foreground-ctrl-neutral-primary-rest</td><td>Foreground/text color for controls/interactive elements (neutral) — rest state</td></tr>
+              <tr><td>--bing-smtc-foreground-ctrl-on-image-alt-rest</td><td>Foreground/text color for controls/interactive elements — rest state</td></tr>
+              <tr><td>--bing-smtc-foreground-ctrl-on-image-switchable-rest</td><td>Foreground/text color for controls/interactive elements — rest state</td></tr>
+              <tr><td>--bing-smtc-foreground-ctrl-on-image-switchable-hover</td><td>Foreground/text color for controls/interactive elements — hover state</td></tr>
+              <tr><td>--bing-smtc-foreground-ctrl-on-image-switchable-pressed</td><td>Foreground/text color for controls/interactive elements — pressed state</td></tr>
+              <tr><td>--bing-smtc-ctrl-link-foreground-brand-rest</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--bing-smtc-foreground-content-brand-rest</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--bing-smtc-foreground-content-brand-hover</td><td><span class="pv-color-chip" style="background:#004478"></span>#004478 / #aacce6</td></tr>
+              <tr><td>--bing-smtc-foreground-content-brand-pressed</td><td><span class="pv-color-chip" style="background:#003660"></span>#003660 / #9cbbd2</td></tr>
+              <tr><td>--bing-smtc-foreground-ctrl-neutral-primary-alt-rest</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--bing-smtc-background-container</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-background-container-alt</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-background-container-highlight</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-background-on-container-card</td><td>Background color for card components</td></tr>
+              <tr><td>--bing-smtc-background-overlay</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-ctrl-search-box-background-rest</td><td>Background color for controls/interactive elements — rest state</td></tr>
+              <tr><td>--bing-smtc-ctrl-spinner-background-default</td><td>Background color for controls/interactive elements</td></tr>
+              <tr><td>--bing-smtc-ctrl-highlight-ring-stroke-stop-1</td><td><span class="pv-color-chip" style="background:#0078d4"></span>#0078d4 / #c6e2f7</td></tr>
+              <tr><td>--bing-smtc-ctrl-highlight-ring-stroke-stop-2</td><td><span class="pv-color-chip" style="background:#00487f"></span>#00487f / #9cbbd2</td></tr>
+              <tr><td>--bing-smtc-ctrl-choice-switch-stroke-neutral-rest</td><td>Border/stroke color for controls/interactive elements (neutral) — rest state</td></tr>
+              <tr><td>--bing-smtc-stroke-ctrl-default</td><td>Border/stroke color for controls/interactive elements</td></tr>
+              <tr><td>--bing-smtc-stroke-ctrl-disable</td><td>Border/stroke color for controls/interactive elements</td></tr>
+              <tr><td>--bing-smtc-stroke-ctrl-on-image-default</td><td>Border/stroke color for controls/interactive elements</td></tr>
+              <tr><td>--bing-smtc-stroke-ctrl-strong</td><td>Border/stroke color for controls/interactive elements (strong variant)</td></tr>
+              <tr><td>--bing-smtc-stroke-ctrl-subtle</td><td>Border/stroke color for controls/interactive elements (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-stroke-divider-stop-0</td><td>Border/stroke color for dividers</td></tr>
+              <tr><td>--bing-smtc-foreground-ctrl-on-subtle-rest</td><td>Foreground/text color for controls/interactive elements (subtle variant) — rest state</td></tr>
+              <tr><td>--bing-smtc-foreground-ctrl-on-subtle-hover</td><td>Foreground/text color for controls/interactive elements (subtle variant) — hover state</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-subtle-hover</td><td>Background color for controls/interactive elements (subtle variant) — hover state</td></tr>
+              <tr><td>--bing-smtc-foreground-ctrl-on-subtle-pressed</td><td>Foreground/text color for controls/interactive elements (subtle variant) — pressed state</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-subtle-pressed</td><td>Background color for controls/interactive elements (subtle variant) — pressed state</td></tr>
+              <tr><td>--bing-smtc-ctrl-choice-switch-background-hover</td><td>Background color for controls/interactive elements — hover state</td></tr>
+              <tr><td>--bing-smtc-ctrl-choice-switch-background-pressed</td><td>Background color for controls/interactive elements — pressed state</td></tr>
+              <tr><td>--bing-smtc-foreground-image-placeholder-default</td><td><span class="pv-color-chip" style="background:#c6e2f7"></span>#c6e2f7 / #243949</td></tr>
+              <tr><td>--bing-smtc-status-danger-tint-foreground-alt</td><td>Foreground/text color (danger/error state)</td></tr>
+              <tr><td>--bing-smtc-status-success-tint-foreground-alt</td><td>Foreground/text color (success state)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-red-strong</td><td>Foreground/text color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-red-strong</td><td>Border/stroke color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-red-default</td><td>Foreground/text color</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-red-default</td><td>Border/stroke color</td></tr>
+              <tr><td>--bing-smtc-data-foreground-red-subtle</td><td>Foreground/text color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-red-subtle</td><td>Border/stroke color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-amber-strong</td><td>Foreground/text color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-amber-strong</td><td>Border/stroke color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-amber-default</td><td>Foreground/text color</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-amber-default</td><td>Border/stroke color</td></tr>
+              <tr><td>--bing-smtc-data-foreground-amber-subtle</td><td>Foreground/text color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-amber-subtle</td><td>Border/stroke color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-green-strong</td><td>Foreground/text color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-green-strong</td><td>Border/stroke color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-green-default</td><td>Foreground/text color</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-green-default</td><td>Border/stroke color</td></tr>
+              <tr><td>--bing-smtc-data-foreground-green-subtle</td><td>Foreground/text color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-green-subtle</td><td>Border/stroke color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-blue-strong</td><td>Foreground/text color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-blue-strong</td><td>Border/stroke color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-blue-default</td><td>Foreground/text color</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-blue-default</td><td>Border/stroke color</td></tr>
+              <tr><td>--bing-smtc-data-foreground-blue-subtle</td><td>Foreground/text color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-blue-subtle</td><td>Border/stroke color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-gray-strong</td><td>Foreground/text color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-gray-strong</td><td>Border/stroke color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-gray-default</td><td>Foreground/text color</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-gray-default</td><td>Border/stroke color</td></tr>
+              <tr><td>--bing-smtc-data-foreground-gray-subtle</td><td>Foreground/text color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-gray-subtle</td><td>Border/stroke color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-yellow-strong</td><td>Foreground/text color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-yellow-strong</td><td>Border/stroke color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-foreground-yellow-default</td><td>Foreground/text color</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-yellow-default</td><td>Border/stroke color</td></tr>
+              <tr><td>--bing-smtc-data-foreground-yellow-subtle</td><td>Foreground/text color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-deco-stroke-yellow-subtle</td><td>Border/stroke color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-red-strong</td><td>Background color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-red-default</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-data-background-red-subtle</td><td>Background color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-amber-strong</td><td>Background color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-amber-default</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-data-background-amber-subtle</td><td>Background color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-green-strong</td><td>Background color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-green-default</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-data-background-green-subtle</td><td>Background color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-blue-strong</td><td>Background color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-blue-default</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-data-background-blue-subtle</td><td>Background color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-gray-strong</td><td>Background color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-gray-default</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-data-background-gray-subtle</td><td>Background color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-yellow-strong</td><td>Background color (strong variant)</td></tr>
+              <tr><td>--bing-smtc-data-background-yellow-default</td><td>Background color</td></tr>
+              <tr><td>--bing-smtc-data-background-yellow-subtle</td><td>Background color (subtle variant)</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-fade-on-primary-stop-1</td><td><span class="pv-color-chip" style="background:#f3f9fd"></span>#f3f9fd / #1a1f23</td></tr>
+              <tr><td>--mai-smtc-background-ctrl-on-image-rest</td><td>Background color for controls/interactive elements — rest state</td></tr>
+              <tr><td>--mai-smtc-background-ctrl-on-image-hover</td><td>Background color for controls/interactive elements — hover state</td></tr>
+              <tr><td>--mai-smtc-ctrl-citation-background-hover</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--mai-smtc-ctrl-citation-background-pressed</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--mai-smtc-background-card-on-primary-alt-selected</td><td><span class="pv-color-chip" style="background:#c6e2f7"></span>#c6e2f7 / #243949</td></tr>
+              <tr><td>--mai-smtc-choice-switch-background-selected-rest</td><td><span class="pv-color-chip" style="background:#0078d4"></span>#0078d4 / #c6e2f7</td></tr>
+              <tr><td>--mai-smtc-choice-switch-background-selected-hover</td><td><span class="pv-color-chip" style="background:#005a9f"></span>#005a9f / #aacce6</td></tr>
+              <tr><td>--mai-smtc-choice-switch-background-selected-pressed</td><td><span class="pv-color-chip" style="background:#00487f"></span>#00487f / #9cbbd2</td></tr>
+              <tr><td>--mai-smtc-foreground-ctrl-on-image-rest</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--mai-smtc-ctrl-choice-switch-thumb-background-rest</td><td>Background color for controls/interactive elements — rest state</td></tr>
+              <tr><td>--mai-smtc-ctrl-choice-switch-thumb-background-selected-rest</td><td><span class="pv-color-chip" style="background:#fff"></span>#fff / #005ba1</td></tr>
+              <tr><td>--mai-smtc-ctrl-choice-switch-thumb-background-hover</td><td>Background color for controls/interactive elements — hover state</td></tr>
+              <tr><td>--mai-smtc-ctrl-choice-switch-thumb-background-pressed</td><td>Background color for controls/interactive elements — pressed state</td></tr>
+              <tr><td>--mai-smtc-ctrl-citation-background-rest</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--mai-smtc-ctrl-choice-switch-stroke-rest</td><td><span class="pv-color-chip" style="background:#0078d4"></span>#0078d4 / #c6e2f7</td></tr>
+              <tr><td>--mai-smtc-ctrl-choice-switch-stroke-hover</td><td><span class="pv-color-chip" style="background:#005a9f"></span>#005a9f / #aacce6</td></tr>
+              <tr><td>--mai-smtc-ctrl-choice-switch-stroke-pressed</td><td><span class="pv-color-chip" style="background:#00487f"></span>#00487f / #9cbbd2</td></tr>
+              <tr><td>--mai-smtc-ctrl-choice-switch-background-default</td><td>Background color for controls/interactive elements</td></tr>
+              <tr><td>--smtc-background-card-on-primary-alt-disabled</td><td><span class="pv-color-chip" style="background:#f3f9fd"></span>#f3f9fd / #1a1f23</td></tr>
+              <tr><td>--smtc-background-ctrl-active-brand-disabled</td><td><span class="pv-color-chip" style="background:#ebf6ff"></span>#ebf6ff / #1d2b36</td></tr>
+              <tr><td>--smtc-background-ctrl-outline-disabled</td><td><span class="pv-color-chip" style="background:#ebf6ff"></span>#ebf6ff / #1d2b36</td></tr>
+              <tr><td>--smtc-background-ctrl-subtle-disabled</td><td><span class="pv-color-chip" style="background:rgba(235, 246, 255, 0)"></span>rgba(235, 246, 255, 0) / rgba(29, 43, 54, 0)</td></tr>
+              <tr><td>--smtc-background-ctrl-subtle-hover</td><td><span class="pv-color-chip" style="background:#dfecf5"></span>#dfecf5 / #202f3b</td></tr>
+              <tr><td>--smtc-background-ctrl-subtle-pressed</td><td><span class="pv-color-chip" style="background:#d5e5f0"></span>#d5e5f0 / #233440</td></tr>
+              <tr><td>--smtc-ctrl-input-background-disabled</td><td><span class="pv-color-chip" style="background:#d5e5f0"></span>#d5e5f0 / #233440</td></tr>
+              <tr><td>--smtc-background-card-on-flyout-default-hover</td><td>Background color for card components — hover state</td></tr>
+              <tr><td>--smtc-background-card-on-flyout-default-pressed</td><td>Background color for card components — pressed state</td></tr>
+              <tr><td>--smtc-background-card-on-primary-default-rest</td><td>Background color for card components — rest state</td></tr>
+              <tr><td>--smtc-background-card-on-primary-default-hover</td><td>Background color for card components — hover state</td></tr>
+              <tr><td>--smtc-background-card-on-primary-default-pressed</td><td>Background color for card components — pressed state</td></tr>
+              <tr><td>--smtc-background-card-on-secondary-default-rest</td><td>Background color for card components — rest state</td></tr>
+              <tr><td>--smtc-background-card-on-secondary-default-hover</td><td>Background color for card components — hover state</td></tr>
+              <tr><td>--smtc-background-ctrl-brand-rest</td><td>Background color for controls/interactive elements (brand/accent themed) — rest state</td></tr>
+              <tr><td>--smtc-background-ctrl-outline-hover</td><td>Background color for controls/interactive elements — hover state</td></tr>
+              <tr><td>--smtc-background-ctrl-outline-pressed</td><td>Background color for controls/interactive elements — pressed state</td></tr>
+              <tr><td>--smtc-background-ctrl-subtle-rest</td><td>Background color for controls/interactive elements (subtle variant) — rest state</td></tr>
+              <tr><td>--smtc-ctrl-fab-background-rest</td><td>Background color for controls/interactive elements — rest state</td></tr>
+              <tr><td>--smtc-ctrl-fab-background-hover</td><td>Background color for controls/interactive elements — hover state</td></tr>
+              <tr><td>--smtc-ctrl-fab-background-pressed</td><td>Background color for controls/interactive elements — pressed state</td></tr>
+              <tr><td>--smtc-status-brand-background</td><td>Background color (brand/accent themed)</td></tr>
+              <tr><td>--smtc-status-informative-tint-background</td><td>Background color</td></tr>
+              <tr><td>--smtc-background-card-on-primary-alt-rest</td><td><span class="pv-color-chip" style="background:#c6e2f7"></span>#c6e2f7 / #243949</td></tr>
+              <tr><td>--smtc-background-card-on-primary-alt-hover</td><td><span class="pv-color-chip" style="background:#b7d5eb"></span>#b7d5eb / #2a4051</td></tr>
+              <tr><td>--smtc-background-card-on-primary-alt-pressed</td><td><span class="pv-color-chip" style="background:#a5c6df"></span>#a5c6df / #2e4659</td></tr>
+              <tr><td>--smtc-background-card-on-secondary-alt-rest</td><td><span class="pv-color-chip" style="background:#c6e2f7"></span>#c6e2f7 / #243949</td></tr>
+              <tr><td>--smtc-background-ctrl-active-brand-rest</td><td><span class="pv-color-chip" style="background:#0078d4"></span>#0078d4 / #c6e2f7</td></tr>
+              <tr><td>--smtc-background-ctrl-active-brand-hover</td><td><span class="pv-color-chip" style="background:#005a9f"></span>#005a9f / #aacce6</td></tr>
+              <tr><td>--smtc-background-ctrl-active-brand-pressed</td><td><span class="pv-color-chip" style="background:#00487f"></span>#00487f / #9cbbd2</td></tr>
+              <tr><td>--smtc-background-ctrl-brand-hover</td><td><span class="pv-color-chip" style="background:#005a9f"></span>#005a9f / #aacce6</td></tr>
+              <tr><td>--smtc-background-ctrl-brand-pressed</td><td><span class="pv-color-chip" style="background:#00487f"></span>#00487f / #9cbbd2</td></tr>
+              <tr><td>--smtc-background-ctrl-neutral-disabled</td><td><span class="pv-color-chip" style="background:#c6e2f7"></span>#c6e2f7 / #243949</td></tr>
+              <tr><td>--smtc-background-ctrl-neutral-hover</td><td><span class="pv-color-chip" style="background:#b7d5eb"></span>#b7d5eb / #2a4051</td></tr>
+              <tr><td>--smtc-background-ctrl-neutral-pressed</td><td><span class="pv-color-chip" style="background:#a5c6df"></span>#a5c6df / #2e4659</td></tr>
+              <tr><td>--smtc-ctrl-lite-filter-background-selected</td><td><span class="pv-color-chip" style="background:#c6e2f7"></span>#c6e2f7 / #243949</td></tr>
+              <tr><td>--smtc-foreground-content-neutral-primary</td><td>Foreground/text color for content areas (neutral)</td></tr>
+              <tr><td>--smtc-foreground-ctrl-neutral-primary-rest</td><td>Foreground/text color for controls/interactive elements (neutral) — rest state</td></tr>
+              <tr><td>--smtc-foreground-content-neutral-secondary</td><td>Foreground/text color for content areas (neutral)</td></tr>
+              <tr><td>--smtc-foreground-ctrl-neutral-primary-disabled</td><td>Foreground/text color for controls/interactive elements (neutral) — disabled state</td></tr>
+              <tr><td>--smtc-ctrl-link-foreground-brand-hover</td><td><span class="pv-color-chip" style="background:#004478"></span>#004478 / #aacce6</td></tr>
+              <tr><td>--smtc-ctrl-link-foreground-brand-pressed</td><td><span class="pv-color-chip" style="background:#003660"></span>#003660 / #9cbbd2</td></tr>
+              <tr><td>--smtc-ctrl-progress-background-filled</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--smtc-foreground-content-brand-primary</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--smtc-foreground-ctrl-active-brand-rest</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--smtc-foreground-ctrl-active-brand-hover</td><td><span class="pv-color-chip" style="background:#004478"></span>#004478 / #aacce6</td></tr>
+              <tr><td>--smtc-foreground-ctrl-active-brand-pressed</td><td><span class="pv-color-chip" style="background:#003660"></span>#003660 / #9cbbd2</td></tr>
+              <tr><td>--smtc-foreground-ctrl-icon-on-neutral-rest</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--smtc-foreground-ctrl-icon-on-neutral-hover</td><td><span class="pv-color-chip" style="background:#004478"></span>#004478 / #aacce6</td></tr>
+              <tr><td>--smtc-foreground-ctrl-icon-on-neutral-pressed</td><td><span class="pv-color-chip" style="background:#003660"></span>#003660 / #9cbbd2</td></tr>
+              <tr><td>--smtc-foreground-ctrl-icon-on-outline-rest</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--smtc-foreground-ctrl-icon-on-outline-hover</td><td><span class="pv-color-chip" style="background:#004478"></span>#004478 / #aacce6</td></tr>
+              <tr><td>--smtc-foreground-ctrl-icon-on-outline-pressed</td><td><span class="pv-color-chip" style="background:#003660"></span>#003660 / #9cbbd2</td></tr>
+              <tr><td>--smtc-foreground-ctrl-icon-on-subtle-rest</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--smtc-foreground-ctrl-icon-on-subtle-hover</td><td><span class="pv-color-chip" style="background:#004478"></span>#004478 / #aacce6</td></tr>
+              <tr><td>--smtc-foreground-ctrl-icon-on-subtle-pressed</td><td><span class="pv-color-chip" style="background:#003660"></span>#003660 / #9cbbd2</td></tr>
+              <tr><td>--smtc-foreground-ctrl-neutral-primary-hover</td><td><span class="pv-color-chip" style="background:#004478"></span>#004478 / #aacce6</td></tr>
+              <tr><td>--smtc-foreground-ctrl-neutral-primary-pressed</td><td><span class="pv-color-chip" style="background:#003660"></span>#003660 / #9cbbd2</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-active-brand-rest</td><td><span class="pv-color-chip" style="background:#fff"></span>#fff / #005ba1</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-active-brand-hover</td><td><span class="pv-color-chip" style="background:#fff"></span>#fff / #005495</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-active-brand-pressed</td><td><span class="pv-color-chip" style="background:#fff"></span>#fff / #004070</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-brand-rest</td><td><span class="pv-color-chip" style="background:#fff"></span>#fff / #005ba1</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-brand-hover</td><td><span class="pv-color-chip" style="background:#fff"></span>#fff / #005495</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-brand-pressed</td><td><span class="pv-color-chip" style="background:#fff"></span>#fff / #004070</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-outline-rest</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-outline-hover</td><td><span class="pv-color-chip" style="background:#004478"></span>#004478 / #aacce6</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-outline-pressed</td><td><span class="pv-color-chip" style="background:#003660"></span>#003660 / #9cbbd2</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-subtle-rest</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-subtle-hover</td><td><span class="pv-color-chip" style="background:#004478"></span>#004478 / #aacce6</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-subtle-pressed</td><td><span class="pv-color-chip" style="background:#003660"></span>#003660 / #9cbbd2</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-transparent-rest</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-transparent-hover</td><td><span class="pv-color-chip" style="background:#004478"></span>#004478 / #aacce6</td></tr>
+              <tr><td>--smtc-foreground-ctrl-on-transparent-pressed</td><td><span class="pv-color-chip" style="background:#003660"></span>#003660 / #9cbbd2</td></tr>
+              <tr><td>--smtc-status-brand-foreground</td><td><span class="pv-color-chip" style="background:#fff"></span>#fff / #005ba1</td></tr>
+              <tr><td>--smtc-status-brand-tint-foreground</td><td><span class="pv-color-chip" style="background:#005ba1"></span>#005ba1 / #c6e2f7</td></tr>
+              <tr><td>--smtc-background-ctrl-neutral-rest</td><td>Background color for controls/interactive elements (neutral) — rest state</td></tr>
+              <tr><td>--smtc-ctrl-tooltip-background</td><td>Background color for controls/interactive elements</td></tr>
+              <tr><td>--smtc-ctrl-input-background-rest</td><td><span class="pv-color-chip" style="background:#f3f9fd"></span>#f3f9fd / #1a1f23</td></tr>
+              <tr><td>--smtc-ctrl-input-background-pressed</td><td><span class="pv-color-chip" style="background:rgba(255, 255, 255, 0)"></span>rgba(255, 255, 255, 0) / rgba(255, 255, 255, 0.1)</td></tr>
+              <tr><td>--smtc-ctrl-input-background-error</td><td><span class="pv-color-chip" style="background:rgba(255, 255, 255, 0)"></span>rgba(255, 255, 255, 0) / rgba(255, 255, 255, 0.1)</td></tr>
+              <tr><td>--smtc-ctrl-choice-base-stroke-hover</td><td><span class="pv-color-chip" style="background:#005a9f"></span>#005a9f / #aacce6</td></tr>
+              <tr><td>--smtc-ctrl-input-stroke-hover</td><td><span class="pv-color-chip" style="background:#005a9f"></span>#005a9f / #aacce6</td></tr>
+              <tr><td>--smtc-ctrl-input-stroke-pressed</td><td><span class="pv-color-chip" style="background:#00487f"></span>#00487f / #9cbbd2</td></tr>
+              <tr><td>--smtc-ctrl-input-stroke-selected</td><td><span class="pv-color-chip" style="background:#00487f"></span>#00487f / #9cbbd2</td></tr>
+              <tr><td>--smtc-stroke-ctrl-on-outline-rest</td><td><span class="pv-color-chip" style="background:#0078d4"></span>#0078d4 / #c6e2f7</td></tr>
+              <tr><td>--smtc-stroke-ctrl-on-outline-hover</td><td><span class="pv-color-chip" style="background:#005a9f"></span>#005a9f / #aacce6</td></tr>
+              <tr><td>--smtc-stroke-ctrl-on-outline-pressed</td><td><span class="pv-color-chip" style="background:#00487f"></span>#00487f / #9cbbd2</td></tr>
+              <tr><td>--smtc-stroke-width-ctrl-outline-rest</td><td><span class="pv-color-chip" style="background:#0078d4"></span>#0078d4 / #c6e2f7</td></tr>
+              <tr><td>--smtc-stroke-width-ctrl-outline-hover</td><td><span class="pv-color-chip" style="background:#005a9f"></span>#005a9f / #aacce6</td></tr>
+              <tr><td>--smtc-ctrl-focus-inner-stroke</td><td>Border/stroke color for controls/interactive elements — focus state</td></tr>
+              <tr><td>--smtc-ctrl-focus-outer-stroke</td><td>Border/stroke color for controls/interactive elements — focus state</td></tr>
+              <tr><td>--smtc-ctrl-progress-background-empty</td><td>Background color for controls/interactive elements</td></tr>
+              <tr><td>--smtc-stroke-card-on-primary-rest</td><td>Border/stroke color for card components — rest state</td></tr>
+              <tr><td>--smtc-stroke-ctrl-on-neutral-rest</td><td>Border/stroke color for controls/interactive elements (neutral) — rest state</td></tr>
+              <tr><td>--smtc-stroke-divider-default</td><td>Border/stroke color for dividers</td></tr>
+              <tr><td>--smtc-background-web-page-primary</td><td>Background color for page background</td></tr>
+              <tr><td>--smtc-ctrl-link-foreground-brand-rest</td><td>Foreground/text color for controls/interactive elements (brand/accent themed) — rest state</td></tr>
+              <tr><td>--smtc-ctrl-rating-icon-foreground-filled</td><td>Foreground/text color for controls/interactive elements</td></tr>
+              <tr><td>--smtc-status-danger-background</td><td>Background color (danger/error state)</td></tr>
+              <tr><td>--smtc-status-danger-stroke</td><td>Border/stroke color (danger/error state)</td></tr>
+              <tr><td>--smtc-status-danger-tint-foreground</td><td>Foreground/text color (danger/error state)</td></tr>
+              <tr><td>--smtc-status-success-background</td><td>Background color (success state)</td></tr>
+              <tr><td>--smtc-status-success-stroke</td><td>Border/stroke color (success state)</td></tr>
+              <tr><td>--smtc-status-success-tint-foreground</td><td>Foreground/text color (success state)</td></tr>
+              <tr><td>--smtc-status-warning-background</td><td>Background color (warning state)</td></tr>
+              <tr><td>--smtc-status-warning-stroke</td><td>Border/stroke color (warning state)</td></tr>
+              <tr><td>--smtc-status-warning-tint-foreground</td><td>Foreground/text color (warning state)</td></tr>
+              <tr><td>--smtc-ctrl-list-background-selected-rest</td><td><span class="pv-color-chip" style="background:#ebf6ff"></span>#ebf6ff / #1d2b36</td></tr>
+              <tr><td>--smtc-ctrl-list-background-selected-hover</td><td><span class="pv-color-chip" style="background:#dfecf5"></span>#dfecf5 / #202f3b</td></tr>
+              <tr><td>--smtc-ctrl-list-background-selected-pressed</td><td><span class="pv-color-chip" style="background:#d5e5f0"></span>#d5e5f0 / #233440</td></tr>
+              <tr><td>--smtc-ctrl-input-stroke-rest</td><td>Border/stroke color for controls/interactive elements — rest state</td></tr>
+              <tr><td>--smtc-ctrl-choice-base-background-rest</td><td><span class="pv-color-chip" style="background:#f3f9fd"></span>#f3f9fd / #1a1f23</td></tr>
+              <tr><td>--smtc-ctrl-choice-base-stroke-rest</td><td>Border/stroke color for controls/interactive elements — rest state</td></tr>
+              <tr><td>--smtc-ctrl-choice-base-background-hover</td><td><span class="pv-color-chip" style="background:#f3f9fd"></span>#f3f9fd / #1a1f23</td></tr>
+              <tr><td>--smtc-background-smoke</td><td>Background color</td></tr>
+              <tr><td>--smtc-ctrl-tooltip-foreground</td><td>Foreground/text color for controls/interactive elements</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-subtle-rest</td><td><span class="pv-color-chip" style="background:#ebf6ff"></span>#ebf6ff / #1d2b36</td></tr>
+              <tr><td>--bing-smtc-foreground-content-white</td><td>Foreground/text color for content areas</td></tr>
+              <tr><td>--smtc-background-ctrl-subtle-selected-rest</td><td><span class="pv-color-chip" style="background:#c6e2f7"></span>#c6e2f7 / #243949</td></tr>
+              <tr><td>--bing-smtc-ctrl-citation-on-card-background-pressed</td><td><span class="pv-color-chip" style="background:#a5c6df"></span>#a5c6df / #2e4659</td></tr>
+              <tr><td>--smtc-background-ctrl-outline-rest</td><td>Background color for controls/interactive elements — rest state</td></tr>
+              <tr><td>--smtc-stroke-divider-subtle</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--smtc-stroke-divider-strong</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--bing-smtc-background-scroll-rest</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--bing-smtc-ctrl-tab-in-card-background-hover</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--bing-smtc-ctrl-tab-in-card-background-pressed</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--bing-smtc-ctrl-tab-in-card-background-selected</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--smtc-background-card-on-flyout-default-rest</td><td>Background color for card components — rest state</td></tr>
+              <tr><td>--smtc-ctrl-lite-filter-foreground-selected</td><td>Foreground/text color for controls/interactive elements — selected state</td></tr>
+              <tr><td>--bing-smtc-background-card-on-primary-alt-gradient</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-fade-on-primary-gradient</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-single-entity-image-overlay-background</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--bing-smtc-background-ctrl-fade-on-image-gradient</td><td>Defined by foundation mapping</td></tr>
+              <tr><td>--bing-smtc-stroke-gradient-divider</td><td>Defined by foundation mapping</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pv" id="pv-latest-modes">
+          <div class="ex-preview-label">Modes</div>
+          <div class="ex-preview-title">Light and Dark</div>
+          <div class="ex-preview-desc">Semantic variables switch modes automatically. The current catalog includes 120 explicit Light/Dark color pairs and 165 reference-mapped color tokens.</div>
+          <table class="pv-token-table">
+            <thead><tr><th>Mode coverage</th><th>Count</th></tr></thead>
+            <tbody>
+              <tr><td>Light mode values</td><td>120</td></tr>
+              <tr><td>Dark mode values</td><td>120</td></tr>
+              <tr><td>Reference-mapped color tokens</td><td>165</td></tr>
+              <tr><td>Consumer rule</td><td>Use var(--token, fallback)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pv" id="pv-latest-type">
+          <div class="ex-preview-label">Type</div>
+          <div class="ex-preview-title">23 typography tokens</div>
+          <div class="ex-preview-desc">Twenty-two semantic text styles and one default font-family token define the Bing type system. Responsive pairs are Desktop / Mobile.</div>
+          <table class="pv-token-table">
+            <thead><tr><th>Token</th><th>Resolved value</th></tr></thead>
+            <tbody>
+              <tr><td>--bing-smtc-text-global-body1</td><td>normal · 400 · 18px/28px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-body1-strong</td><td>normal · 700 · 18px/28px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-body2</td><td>normal · 400 · 16px/26px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-body2-strong</td><td>normal · 700 · 16px/26px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-body3</td><td>normal · 400 · 14px/22px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-body3-strong</td><td>normal · 700 · 14px/22px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-caption1</td><td>normal · 400 · 13px/20px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-caption1-strong</td><td>normal · 700 · 13px/20px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-caption2</td><td>normal · 400 · 11px/13px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-caption2-strong</td><td>normal · 700 · 11px/13px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-display1</td><td>normal · 400 · 54px/64px / 42px/50px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-display2</td><td>normal · 400 · 40px/48px / 36px/42px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-subtitle1</td><td>normal · 400 · 20px/26px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-subtitle1-strong</td><td>normal · 700 · 20px/26px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-subtitle2</td><td>normal · 400 · 18px/22px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-subtitle2-strong</td><td>normal · 700 · 18px/22px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-title1</td><td>normal · 400 · 36px/48px / 32px/42px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-title2</td><td>normal · 400 · 24px/32px / 24px/28px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-title2-strong</td><td>normal · 700 · 24px/32px / 24px/28px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-title-2-alt</td><td>normal · 400 · 24px/32px · default family</td></tr>
+              <tr><td>--bing-smtc-text-global-body-2-alt-strong</td><td>normal · 700 · 16px/22px · default family</td></tr>
+              <tr><td>--bing-smtc-text-style-default-regular-font-family</td><td>Arial, Helvetica, Sans-Serif</td></tr>
+              <tr><td>--bing-smtc-text-global-body3-mono</td><td>normal · 400 · 14px/22px · &quot;Cascadia Code&quot;, ui-monospace, SFMono-Regular, Consolas, monospace</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pv" id="pv-latest-shape">
+          <div class="ex-preview-label">Shape</div>
+          <div class="ex-preview-title">31 corner-radius tokens</div>
+          <div class="ex-preview-desc">Semantic radius aliases cover controls, cards, flyouts, favicons, and circular elements. Responsive pairs are Desktop / Mobile.</div>
+          <table class="pv-token-table">
+            <thead><tr><th>Token</th><th>Resolved value</th></tr></thead>
+            <tbody>
+              <tr><td>--bing-smtc-corner-flyout-popover-rest</td><td>16px / 12px</td></tr>
+              <tr><td>--mai-smtc-corner-ctrl-xlg-rest</td><td>16px / 12px</td></tr>
+              <tr><td>--mai-smtc-corner-favicon</td><td>4px / 3px</td></tr>
+              <tr><td>--mai-smtc-corner-list-card-default</td><td>8px / 6px</td></tr>
+              <tr><td>--mai-smtc-corner-card-default</td><td>24px</td></tr>
+              <tr><td>--smtc-corner-ctrl-sm-rest</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-corner-ctrl-sm-hover</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-corner-ctrl-sm-pressed</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-corner-ctrl-rest</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-corner-ctrl-hover</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-corner-ctrl-pressed</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-corner-ctrl-lg-rest</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-corner-ctrl-lg-hover</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-corner-ctrl-lg-pressed</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-corner-flyout-rest</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-ctrl-badge-corner</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-ctrl-badge-sm-corner</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-ctrl-choice-checkbox-corner</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-ctrl-list-corner-rest</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-ctrl-list-corner-hover</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-ctrl-list-corner-pressed</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-corner-circular</td><td>9999px</td></tr>
+              <tr><td>--bing-static-corner-rounded-none</td><td>0px</td></tr>
+              <tr><td>--bing-static-corner-rounded-xxx-small</td><td>4px</td></tr>
+              <tr><td>--bing-static-corner-rounded-xx-small</td><td>8px</td></tr>
+              <tr><td>--bing-static-corner-rounded-x-small</td><td>12px</td></tr>
+              <tr><td>--bing-static-corner-rounded-small</td><td>16px</td></tr>
+              <tr><td>--bing-static-corner-rounded-medium</td><td>20px</td></tr>
+              <tr><td>--bing-static-corner-rounded-large</td><td>24px</td></tr>
+              <tr><td>--bing-static-corner-rounded-x-large</td><td>28px</td></tr>
+              <tr><td>--bing-static-corner-rounded-xx-large</td><td>32px</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pv" id="pv-latest-spacing">
+          <div class="ex-preview-label">Spacing</div>
+          <div class="ex-preview-title">48 spacing tokens</div>
+          <div class="ex-preview-desc">Thirty-six padding tokens and twelve gap tokens control component density and content rhythm. Responsive pairs are Desktop / Mobile.</div>
+          <table class="pv-token-table">
+            <thead><tr><th>Token</th><th>Resolved value</th></tr></thead>
+            <tbody>
+              <tr><td>--bing-smtc-padding-ctrl-text-side-large</td><td>4px / 3px</td></tr>
+              <tr><td>--bing-smtc-padding-ctrl-icon-only-text-top</td><td>4px / 3px</td></tr>
+              <tr><td>--bing-smtc-padding-ctrl-icon-only-text-bottom</td><td>4px / 3px</td></tr>
+              <tr><td>--bing-smtc-padding-ctrl-xs-horizontal</td><td>4px / 3px</td></tr>
+              <tr><td>--bing-smtc-padding-ctrl-xlg-text-top</td><td>16px / 12px</td></tr>
+              <tr><td>--bing-smtc-padding-ctrl-xlg-text-bottom</td><td>16px / 12px</td></tr>
+              <tr><td>--bing-smtc-padding-ctrl-xlg-horizontal-default</td><td>20px / 16px</td></tr>
+              <tr><td>--mai-smtc-padding-card-default</td><td>20px / 16px</td></tr>
+              <tr><td>--mai-smtc-padding-list-card-default</td><td>8px / 6px</td></tr>
+              <tr><td>--mai-smtc-padding-card-nested-default</td><td>12px</td></tr>
+              <tr><td>--mai-smtc-padding-card-nested-xs-default</td><td>8px</td></tr>
+              <tr><td>--smtc-ctrl-badge-gap</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-ctrl-badge-padding</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-ctrl-badge-sm-text-padding-top</td><td>2px</td></tr>
+              <tr><td>--smtc-ctrl-badge-sm-text-padding-bottom</td><td>2px</td></tr>
+              <tr><td>--smtc-gap-between-content-xxx-small</td><td>2px</td></tr>
+              <tr><td>--smtc-gap-between-content-xx-small</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-gap-between-content-x-small</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-gap-between-content-small</td><td>12px / 9px</td></tr>
+              <tr><td>--smtc-gap-between-content-medium</td><td>16px / 12px</td></tr>
+              <tr><td>--smtc-gap-between-content-x-large</td><td>24px / 16px</td></tr>
+              <tr><td>--smtc-gap-between-content-xx-large</td><td>36px / 26px</td></tr>
+              <tr><td>--smtc-gap-inside-ctrl-to-secondary-icon</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-padding-content-xx-large</td><td>48px / 34px</td></tr>
+              <tr><td>--smtc-padding-content-xxx-large</td><td>80px / 56px</td></tr>
+              <tr><td>--smtc-padding-ctrl-horizontal-default</td><td>12px / 9px</td></tr>
+              <tr><td>--smtc-padding-ctrl-lg-horizontal-default</td><td>16px / 12px</td></tr>
+              <tr><td>--smtc-padding-ctrl-lg-text-bottom</td><td>12px / 9px</td></tr>
+              <tr><td>--smtc-padding-ctrl-lg-text-top</td><td>12px / 9px</td></tr>
+              <tr><td>--smtc-padding-ctrl-sm-horizontal-default</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-padding-ctrl-sm-text-bottom</td><td>3px</td></tr>
+              <tr><td>--smtc-padding-ctrl-sm-text-top</td><td>3px</td></tr>
+              <tr><td>--smtc-padding-ctrl-text-bottom</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-padding-ctrl-text-side</td><td>2px</td></tr>
+              <tr><td>--smtc-padding-ctrl-text-top</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-padding-ctrl-sm-horizontal-icon-only</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-gap-inside-ctrl-lg-to-secondary-icon</td><td>8px / 6px</td></tr>
+              <tr><td>--smtc-ctrl-badge-sm-padding</td><td>4px / 3px</td></tr>
+              <tr><td>--smtc-gap-between-content-none</td><td>0px</td></tr>
+              <tr><td>--smtc-gap-between-content-large</td><td>20px</td></tr>
+              <tr><td>--smtc-padding-content-none</td><td>0px</td></tr>
+              <tr><td>--smtc-padding-content-xx-small</td><td>4px</td></tr>
+              <tr><td>--smtc-padding-content-x-small</td><td>8px</td></tr>
+              <tr><td>--smtc-padding-content-small</td><td>12px</td></tr>
+              <tr><td>--smtc-padding-content-medium</td><td>16px</td></tr>
+              <tr><td>--smtc-padding-content-large</td><td>20px</td></tr>
+              <tr><td>--smtc-padding-content-x-large</td><td>24px</td></tr>
+              <tr><td>--smtc-padding-content-xxx-small</td><td>2px</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pv" id="pv-latest-depth">
+          <div class="ex-preview-label">Depth</div>
+          <div class="ex-preview-title">20 elevation tokens</div>
+          <div class="ex-preview-desc">Shadow tokens define elevation for cards, buttons, flyouts, dialogs, overlays, and search controls.</div>
+          <table class="pv-token-table">
+            <thead><tr><th>Token</th><th>Resolved value</th></tr></thead>
+            <tbody>
+              <tr><td>--smtc-shadows-avatar</td><td>0 1px 3px 0 rgba(0, 0, 0, 0.15)</td></tr>
+              <tr><td>--smtc-shadows-switch-thumb</td><td>0 0 0 1px rgba(0, 0, 0, 0.04), 0 3px 1px 0 rgba(0, 0, 0, 0.06), 0 3px 8px 0 rgba(0, 0, 0, 0.15)</td></tr>
+              <tr><td>--smtc-shadows-button-neutral</td><td>0 0.5px 0.5px 0.5px #fff inset, 0 1px 3px 0 rgba(0, 0, 0, 0.15)</td></tr>
+              <tr><td>--smtc-shadows-button-brand</td><td>0 1px 3px 0 rgba(0, 0, 0, 0.15)</td></tr>
+              <tr><td>--bing-smtc-shadows-card</td><td>0 0 0 1px rgba(0, 0, 0, 0.05)</td></tr>
+              <tr><td>--smtc-shadows-card</td><td>0 0 0 1px rgba(0, 0, 0, 0.1)</td></tr>
+              <tr><td>--bing-smtc-shadows-card-hover-1</td><td>0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 4px 1px rgba(0, 0, 0, 0.14)</td></tr>
+              <tr><td>--bing-smtc-shadows-card-hover-strong-1</td><td>0 0 0 1px rgba(0, 0, 0, 0.08), 0 2px 4px 1px rgba(0, 0, 0, 0.16)</td></tr>
+              <tr><td>--bing-smtc-shadows-flyout</td><td>0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 4px 1px rgba(0, 0, 0, 0.18)</td></tr>
+              <tr><td>--bing-smtc-shadows-card-hover-3</td><td>0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 12px 1px rgba(0, 0, 0, 0.14)</td></tr>
+              <tr><td>--smtc-shadows-tooltip</td><td>-5px 4px 12px 0 rgba(0, 0, 0, 0.1)</td></tr>
+              <tr><td>--smtc-shadows-dialog</td><td>-5px 4px 12px 0 rgba(0, 0, 0, 0.1)</td></tr>
+              <tr><td>--smtc-shadows-flyout</td><td>-5px 4px 12px 0 rgba(0, 0, 0, 0.1)</td></tr>
+              <tr><td>--smtc-shadows-floating-action-button-rest</td><td>0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 12px 1px rgba(0, 0, 0, 0.14)</td></tr>
+              <tr><td>--smtc-shadows-floating-action-button-hover</td><td>0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 12px 1px rgba(0, 0, 0, 0.14)</td></tr>
+              <tr><td>--smtc-shadows-floating-action-button-pressed</td><td>0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 12px 1px rgba(0, 0, 0, 0.14)</td></tr>
+              <tr><td>--bing-smtc-shadows-overlay</td><td>0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 12px 1px rgba(0, 0, 0, 0.14)</td></tr>
+              <tr><td>--bing-smtc-shadows-search-box-rest</td><td>0 1px 3px 0 rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(0, 0, 0, 0.00), 0 0 1px 0 rgba(0, 0, 0, 0.15), 0 2px 6px 0 rgba(244, 190, 146, 0.18)</td></tr>
+              <tr><td>--bing-smtc-shadows-search-box-hover</td><td>0 4px 6px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.03), 0 0 1px 0 rgba(0, 0, 0, 0.08), 0 4px 12px 0 rgba(244, 190, 146, 0.18)</td></tr>
+              <tr><td>--bing-smtc-shadows-search-box-active</td><td>0 8px 12px 0 rgba(0, 0, 0, 0.08), 0 4px 8px 0 rgba(0, 0, 0, 0.03), 0 0 1px 0 rgba(0, 0, 0, 0.08), 0 8px 24px 0 rgba(244, 190, 146, 0.18)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pv" id="pv-latest-motion">
+          <div class="ex-preview-label">Motion</div>
+          <div class="ex-preview-title">16 motion tokens</div>
+          <div class="ex-preview-desc">Duration tokens pair with entrance, exit, elastic, linear, and persistent motion curves.</div>
+          <table class="pv-token-table">
+            <thead><tr><th>Token</th><th>Resolved value</th></tr></thead>
+            <tbody>
+              <tr><td>--smtc-duration-micro-01</td><td>50ms</td></tr>
+              <tr><td>--smtc-duration-short-01</td><td>100ms</td></tr>
+              <tr><td>--smtc-duration-medium-02</td><td>400ms</td></tr>
+              <tr><td>--smtc-entrance-01</td><td>cubic-bezier(0, 0, 0, 1)</td></tr>
+              <tr><td>--smtc-duration-mega-01</td><td>1000ms</td></tr>
+              <tr><td>--smtc-entrance-02</td><td>cubic-bezier(0.14, 1, 0.34, 1)</td></tr>
+              <tr><td>--smtc-exit-01</td><td>cubic-bezier(0.6, 0, 0.75, 0.4)</td></tr>
+              <tr><td>--smtc-persistent-01</td><td>cubic-bezier(0.33, 0, 0, 1)</td></tr>
+              <tr><td>--smtc-elastic-01</td><td>cubic-bezier(0.2, 1.5, 0.4, 1)</td></tr>
+              <tr><td>--smtc-linear</td><td>cubic-bezier(0, 0, 1, 1)</td></tr>
+              <tr><td>--smtc-duration-short-02</td><td>200ms</td></tr>
+              <tr><td>--smtc-duration-medium-01</td><td>300ms</td></tr>
+              <tr><td>--bing-smtc-duration-long</td><td>800ms</td></tr>
+              <tr><td>--bing-smtc-duration-longer</td><td>1200ms</td></tr>
+              <tr><td>--bing-smtc-animation-ease-default</td><td>cubic-bezier(0.3, 0, 0.3, 1)</td></tr>
+              <tr><td>--bing-smtc-animation-ease-loading</td><td>cubic-bezier(0, 0.2, 0.6, 0.6)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pv" id="pv-latest-effects">
+          <div class="ex-preview-label">Effects</div>
+          <div class="ex-preview-title">3 visual effects tokens</div>
+          <div class="ex-preview-desc">Carousel fades and highlight-ring effects complete the 12-category production catalog.</div>
+          <table class="pv-token-table">
+            <thead><tr><th>Token</th><th>Resolved value</th></tr></thead>
+            <tbody>
+              <tr><td>--bing-smtc-ctrl-carousel-alt-stop-0</td><td>rgba(255, 255, 255, 0)</td></tr>
+              <tr><td>--bing-smtc-ctrl-carousel-stop-0</td><td>rgba(255, 255, 255, 0)</td></tr>
+              <tr><td>--bing-smtc-ctrl-highlight-ring-gradient-outline</td><td>linear-gradient(180deg, var(--bing-smtc-ctrl-highlight-ring-stroke-stop-1) 60%, var(--bing-smtc-ctrl-highlight-ring-stroke-stop-2) 100%)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pv" id="pv-latest-namespaces">
+          <div class="ex-preview-label">Architecture</div>
+          <div class="ex-preview-title">Three core namespaces</div>
+          <div class="ex-preview-desc">Shared semantics, Bing-specific decisions, and MAI-aligned mappings stay distinct while remaining interoperable.</div>
+          <table class="pv-token-table">
+            <thead><tr><th>Namespace</th><th>Tokens</th></tr></thead>
+            <tbody>
+              <tr><td>--smtc-*</td><td>199 shared semantic tokens</td></tr>
+              <tr><td>--bing-smtc-*</td><td>192 Bing-specific tokens</td></tr>
+              <tr><td>--mai-smtc-*</td><td>26 MAI-aligned tokens</td></tr>
+              <tr><td>Compatibility variables</td><td>9 additional shipped tokens</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pv" id="pv-latest-catalogs">
+          <div class="ex-preview-label">Agent Lookups</div>
+          <div class="ex-preview-title">Three machine-readable catalogs</div>
+          <div class="ex-preview-desc">Agents can query exact values, reverse-map colors, or identify the tokens consumed by a component without scanning prose.</div>
+          <table class="pv-token-table">
+            <thead><tr><th>File</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>assets/token-catalog.json</td><td>Token name, category, values, usage, and Figma mapping</td></tr>
+              <tr><td>assets/color-lookup.json</td><td>Reverse lookup from raw color to semantic token</td></tr>
+              <tr><td>assets/component-catalog.json</td><td>Component-to-token usage map</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <nav class="ex-menu" aria-label="Latest token catalog explorer">
+        <div class="ex-group open">
+          <div class="ex-group-toggle"><span>Token System <span class="ex-count">426 shipped</span></span><span class="ex-arrow">▸</span></div>
+          <div class="ex-group-items">
+            <div class="ex-item active" data-pv="latest-overview">Catalog overview</div>
+            <div class="ex-item" data-pv="latest-color">Color (285)</div>
+            <div class="ex-item" data-pv="latest-modes">Modes (2)</div>
+            <div class="ex-item" data-pv="latest-type">Type (23)</div>
+            <div class="ex-item" data-pv="latest-shape">Shape (31)</div>
+            <div class="ex-item" data-pv="latest-spacing">Spacing (48)</div>
+            <div class="ex-item" data-pv="latest-depth">Depth (20)</div>
+            <div class="ex-item" data-pv="latest-motion">Motion (16)</div>
+            <div class="ex-item" data-pv="latest-effects">Effects (3)</div>
+          </div>
+        </div>
+        <div class="ex-group">
+          <div class="ex-group-toggle"><span>Architecture <span class="ex-count">3 namespaces</span></span><span class="ex-arrow">▸</span></div>
+          <div class="ex-group-items">
+            <div class="ex-item" data-pv="latest-namespaces">Core namespaces</div>
+            <div class="ex-item" data-pv="latest-catalogs">Lookup catalogs</div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <template id="legacy-whats-inside" aria-hidden="true">
+<section id="whats-inside-legacy">
   <div class="inner">
     <span class="section-label animate visible" style="--delay:0">02 — What's Inside</span>
     <h2 class="animate visible" style="--delay:1">Everything you need to generate <span class="serif">pixel-accurate</span> Bing experiences.</h2>
@@ -1526,75 +2165,70 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
     </div>
   </div>
 </section>
+  </template>
+</section>
 
-<!-- ===== 3. What It Can Do ===== -->
+<!-- ===== 3. Reference System ===== -->
 <section id="what-it-can-do">
   <div class="inner">
-    <span class="section-label animate" style="--delay:0">03 — Capabilities</span>
-    <h2 class="animate" style="--delay:1">From a single <span class="serif">token</span> to a complete search results page.</h2>
+    <span class="section-label animate" style="--delay:0">03 — Reference System</span>
+    <h2 class="animate" style="--delay:1">Four layers. One map for the full <span class="serif">Bing SERP system</span>.</h2>
 
-    <div class="section-title animate" style="--delay:3">Four Task Tiers</div>
+    <div class="section-title animate" style="--delay:3">System Architecture</div>
 
     <table class="tier-table">
       <thead>
         <tr>
-          <th class="animate" style="--delay:4">Tier</th>
-          <th class="animate" style="--delay:4">Input</th>
-          <th class="animate" style="--delay:4">Output</th>
+          <th class="animate" style="--delay:4">Layer</th>
+          <th class="animate" style="--delay:4">Coverage</th>
+          <th class="animate" style="--delay:4">Current Scope</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="animate" style="--delay:5"><td>Styling</td><td>"Apply Bing style to my component"</td><td>Token-mapped CSS</td></tr>
-        <tr class="animate" style="--delay:6"><td>Card</td><td>"Create a video card"</td><td>Single card HTML/CSS</td></tr>
-        <tr class="animate" style="--delay:7"><td>Layout</td><td>"Arrange cards in magazine grid"</td><td>Multi-card grid layout</td></tr>
-        <tr class="animate" style="--delay:8"><td>Full Page</td><td>"Build a Bing search results page"</td><td>Complete SERP with responsive breakpoints</td></tr>
+        <tr class="animate" style="--delay:5"><td>Foundations</td><td>Tokens, color, typography, spacing, radius, elevation, motion, iconography, accessibility</td><td>9 reference docs</td></tr>
+        <tr class="animate" style="--delay:6"><td>Layout</td><td>Container-query grid, zones, section types, and card architecture</td><td>4 reference docs</td></tr>
+        <tr class="animate" style="--delay:7"><td>Components</td><td>Storybook-aligned controls, cards, content modules, and page structures</td><td>78 reference docs</td></tr>
+        <tr class="animate" style="--delay:8"><td>Patterns</td><td>Cross-cutting visual quality checks and implementation traps</td><td>2 reference docs</td></tr>
       </tbody>
     </table>
 
-    <div class="tier-tabs animate" style="--delay:9">
-      <div class="tier-tab-bar">
-        <div class="tier-tab-btn active" data-tier="styling">Styling</div>
-        <div class="tier-tab-btn" data-tier="card">Card</div>
-        <div class="tier-tab-btn" data-tier="layout">Layout</div>
-        <div class="tier-tab-btn" data-tier="page">Full Page</div>
+    <div class="section-title animate" style="--delay:9">How It Is Used</div>
+    <div class="cards-grid reference-paths">
+      <div class="card animate" style="--delay:10">
+        <h3>Look Up Exact Values</h3>
+        <p>Query token, color, and component catalogs without scanning prose.</p>
       </div>
-      <div class="tier-tab-panels">
-        <div class="tier-tab-panel active" id="tier-styling">
-          <img src="styling.png" alt="Styling tier output — token-mapped CSS applied to a component">
-          <div class="tier-tab-desc">Input: "Apply Bing style to my component" → Output: Token-mapped CSS</div>
-        </div>
-        <div class="tier-tab-panel" id="tier-card">
-          <img src="card.png" alt="Card tier output — a single Bing card rendered in HTML/CSS">
-          <div class="tier-tab-desc">Input: "Create a video card" → Output: Single card HTML/CSS</div>
-        </div>
-        <div class="tier-tab-panel" id="tier-layout">
-          <img src="layout.png" alt="Layout tier output — multiple cards arranged in a magazine grid">
-          <div class="tier-tab-desc">Input: "Arrange cards in magazine grid" → Output: Multi-card grid layout</div>
-        </div>
-        <div class="tier-tab-panel" id="tier-page">
-          <img src="page.png" alt="Full Page tier output — a complete Bing SERP with responsive breakpoints">
-          <div class="tier-tab-desc">Input: "Build a Bing search results page" → Output: Complete SERP with responsive breakpoints</div>
-        </div>
+      <div class="card animate" style="--delay:11">
+        <h3>Understand the System</h3>
+        <p>Read foundations and layout rules before making implementation decisions.</p>
+      </div>
+      <div class="card animate" style="--delay:12">
+        <h3>Implement Components</h3>
+        <p>Follow anatomy, variants, states, dependencies, and usage guidance.</p>
+      </div>
+      <div class="card animate" style="--delay:13">
+        <h3>Check Visual Quality</h3>
+        <p>Apply the visual-quality checklist and known implementation traps.</p>
       </div>
     </div>
 
-    <div class="section-title animate" style="--delay:10">Key Capabilities</div>
+    <div class="section-title animate" style="--delay:14">Non-Negotiable Principles</div>
     <ul class="capability-list">
-      <li class="animate" style="--delay:11">Natural language to production-ready HTML/CSS</li>
-      <li class="animate" style="--delay:12">All values use design tokens — zero hardcoded colors or spacing</li>
-      <li class="animate" style="--delay:13">Light/Dark mode via single attribute toggle</li>
-      <li class="animate" style="--delay:14">3 themes switchable with one line of code</li>
-      <li class="animate" style="--delay:15">7-breakpoint responsive (1600px → 499px)</li>
+      <li class="animate" style="--delay:15">Use semantic SMTC tokens with explicit fallbacks — never hardcode design values</li>
+      <li class="animate" style="--delay:16">Use <code>@container serp</code> and the 12 → 8 → 4 → 2 column system</li>
+      <li class="animate" style="--delay:17">Cards stay flat at rest; elevation is reserved for interaction and system UI</li>
+      <li class="animate" style="--delay:18">Dark mode resolves automatically through semantic tokens</li>
+      <li class="animate" style="--delay:19">Load only the references required for the task through progressive disclosure</li>
     </ul>
 
-    <div class="showcase-cta animate" style="--delay:16">
+    <div class="showcase-cta animate" style="--delay:20">
       <div class="showcase-cta-body">
-        <h3>Live Card Showcase</h3>
-        <p>A template website showcasing all the cards, controls, and layout patterns this skill can generate — from Answer Cards to full Magazine grids. Browse real outputs and see the design system in action.</p>
-        <a href="https://toddzhaoxy.github.io/bing-design-skill-card-showcase/" target="_blank" class="showcase-cta-link">View Showcase →</a>
+        <h3>Legacy v1.2 Card Showcase</h3>
+        <p>Historical examples created with the earlier generation-oriented skill. Use them as visual references, not as evidence of the current reference skill's behavior.</p>
+        <a href="https://toddzhaoxy.github.io/bing-design-skill-card-showcase/" target="_blank" class="showcase-cta-link">View Legacy Showcase →</a>
       </div>
       <div class="showcase-cta-img">
-        <img src="Showcase.png" alt="Card Showcase — live examples of all card types generated by the skill">
+        <img src="Showcase.png" alt="Legacy v1.2 card showcase examples">
       </div>
     </div>
   </div>
@@ -1812,8 +2446,8 @@ section:nth-child(even) .tip-num { color: rgba(255,255,255,0.35); }
     <span class="section-label animate" style="--delay:0">08 — Get Started</span>
     <h2 class="animate" style="--delay:1">Ready to <span class="serif">begin</span>?</h2>
     <div class="animate" style="--delay:3;margin-top:2rem">
-      <a href="https://github.com/gim-home/Bing-Design-Skill-1.0" target="_blank" class="showcase-cta-link" style="padding:0.85rem 2.5rem;font-size:0.9rem">Get the Skill →</a>
-      <a href="https://github.com/ToddZhaoXY/bing-design" target="_blank" class="showcase-cta-link" style="padding:0.85rem 2.5rem;font-size:0.9rem;margin-left:1rem">Get new skill (beta) →</a>
+      <a href="https://github.com/gim-home/Bing-design-skills-ACF" target="_blank" class="showcase-cta-link" style="padding:0.85rem 2.5rem;font-size:0.9rem">Get latest skill →</a>
+      <a href="https://github.com/gim-home/Bing-Design-Skill-1.0" target="_blank" class="showcase-cta-link" style="padding:0.85rem 2.5rem;font-size:0.9rem;margin-left:1rem">View old version →</a>
     </div>
   </div>
 </section>
